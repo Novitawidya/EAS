@@ -1,0 +1,16 @@
+.heading{
+    text-align: center;
+    font-size: 40pt;
+    text-transform: uppercase;
+    color: black;
+    padding-bottom: 10px;
+    margin-bottom: 40px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: rgb(148, 187, 189);
+}
+.judul{
+font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 35pt;
+    margin-left: 40px;
+    padding-bottom: 10px;
+}
