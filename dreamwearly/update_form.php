@@ -1,3 +1,21 @@
+<?php
+require_once('db.php');
+
+$id = $_GET['id'];
+$query = "SELECT* FROM dress
+            WHERE id = '$id'";
+$result = mysqli_query($conn, $query);
+$rows = mysqli_num_rows($result);
+$data = mysqli_fetch_assoc($result);
+
+if ($rows == 0) {
+    echo "<script>alert('Data Id Not Found')</script>";
+    echo "<script>window.location.href='read.php'</script>";
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,38 +31,34 @@
 <body>
     <div class="container">
         <div class="p-5 bg-light rounded-3">
-           <h2 class="judul"> Tambah Barang</h2>
+            <h2 class="judul"> Update Barang</h2>
             <br><br>
-            <form action="create.php" enctype="multipart/form-data" method="post">
+            <form action="update.php?id=<?php echo $data['id'] ?> " method="post">
                 <div class="mb-3">
                     <label for="barang" class="form-label">Nama Barang</label>
-                    <input type="text" class="form-control" id="barang" placeholder="Gamis" name="barang">
+                    <input type="text" class="form-control" id="barang" placeholder="Gamis" name="barang" value="<?php echo $data['barang'] ?>">
                 </div>
                 <div class="mb-3">
                     <label for="keterangan" class="form-label">Keterangan</label>
-                    <textarea class="form-control" id="keterangan" rows="3" placeholder="Deskripsi dan spesifikasi barang" name="keterangan"></textarea>
+                    <textarea class="form-control" id="keterangan" rows="3" placeholder="Deskripsi dan spesifikasi barang" name="keterangan"><?php echo $data['keterangan']; ?></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="harga" class="form-label">Harga</label>
-                    <input type="number" step="1" class="form-control" id="harga" placeholder="120000" name="harga">
+                    <input type="number" step="1" class="form-control" id="harga" placeholder="120000" name="harga" value="<?php echo $data['harga'] ?>">
                 </div>
                 <div class="mb-3">
                     <label for="ukuran">Ukuran Baju</label>
-                    <select for="ukuran" class="form-select" aria-label="Default select example" id="ukuran" name="ukuran">
-                        <option selected>Ukuran
-                        <option value="M">M</option>
-                        <option value="L">L</option>
-                        <option value="XL">XL</option>
+                    <select for="ukuran" class="form-select" aria-label="Default select example" id="ukuran" name="ukuran" ]?>">
+                        <option value="M" <?php if ($data['ukuran'] == 'M') echo "selected" ?>>M</option>
+                        <option value="L" <?php if ($data['ukuran'] == 'L') echo "selected" ?>>L</option>
+                        <option value="XL" <?php if ($data['ukuran'] == 'XL') echo "selected" ?>>XL</option>
                     </select>
                 </div>
                 <div class="mb-3">
                     <label for="stok" class="form-label">Stok</label>
-                    <input type="number" step="1" class="form-control" id="stok" placeholder="2" name="stok">
+                    <input type="number" step="1" class="form-control" id="stok" placeholder="2" name="stok" value=<?php echo $data['stok'] ?>>
                 </div>
-                <div class="mb-3">
-                    <label for="image" class="form-label">Gambar Produk</label>
-                    <input type="file" class="form-control" id="image" name="image">
-                </div>
+
                 <button type="submit" class="btn btn-secondary">SUBMIT</button>
             </form>
 

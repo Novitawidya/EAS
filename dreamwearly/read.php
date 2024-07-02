@@ -1,23 +1,25 @@
 <?php
-    require_once('db.php');
+require_once('db.php');
 
-    if($conn){
-        $query = "SELECT * FROM dress";
-        $result = mysqli_query($conn, $query);
-    
-        if($result){
-            $rows = mysqli_num_rows($result);
-            $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        } else {
-            echo "Query failed: " . mysqli_error($conn);
-        }
-    } else {
-        echo "Database connection failed.";
-    }
+if (!$conn) {
+    die("Database connection failed: " . mysqli_connect_error());
+}
+
+$query = "SELECT * FROM dress";
+$result = mysqli_query($conn, $query);
+
+// Check if the query was successful
+if (!$result) {
+    die("Query failed: " . mysqli_error($conn));
+}
+
+$rows = mysqli_num_rows($result);
+$data = mysqli_fetch_all($result, MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,53 +28,58 @@
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body>
-        <div class="container"> 
-            <h2 class="heading">Persediaan Barang</h2>
-<div class="p-5 bg-light rounded-3">
 
-                <a href="create_form.php" class="btn btn-secondary">Tambah Stok Barang</a>
-<br>
+<body>
+    <div class="container">
+        <h2 class="heading">Persediaan Barang</h2>
+        <div class="p-5 bg-light rounded-3">
+
+            <a href="create_form.php" class="btn btn-secondary">Tambah Stok Barang</a>
+            <br>
             <table class="table">
                 <thead>
-                       
+
                     <tr>
                         <th scope="col">NAMA BARANG</th>
                         <th scope="col">KETERANGAN</th>
                         <th scope="col">HARGA</th>
-                        <th scope="col">KATEGORI</th>
+                        <th scope="col">UKURAN</th>
                         <th scope="col">STOK</th>
                         <th scope="col">GAMBAR</th>
                         <th scope="col">TINDAKAN</th>
                     </tr>
+
                 </thead>
                 <tbody>
                     <?php
-                    if (isset($rows) && $rows > 0) {
-                        for ($index=0; $index<$rows; $index++) {
+                    for ($index = 0; $index < $rows; $index++) {
                     ?>
-                        
-                    <tr>
-                        <td><?php echo $data[$index]['barang']?></td>
-                        <td><?php echo$data[$index]['keterangan']?></td>
-                        <td><?php echo$data[$index]['harga']?></td>
-                        <td><?php echo$data[$index]['kategori']?></td>
-                        <td><?php echo$data[$index]['stok']?></td>
-                        <td><img src="uploaded/<?php echo $data[$index]['image']?>" class="img-thumnail" width="100" height="100"></td>
-                        <td> 
-                            <button type="button" class="btn btn-warning">Ubah Data </button>
-                            <button type="button" class="btn btn-danger">Hapus Data</button>
-                        </td>
-                    </tr>
-                     <?php
-                        }
-                    } 
-                     ?>
+
+                        <tr>
+                            <td><?php echo $data[$index]['barang'] ?></td>
+                            <td><?php echo $data[$index]['keterangan'] ?></td>
+                            <td><?php echo $data[$index]['harga'] ?></td>
+                            <td><?php echo $data[$index]['ukuran'] ?></td>
+                            <td><?php echo $data[$index]['stok'] ?></td>
+                            <td> <img src="uploaded/<?php echo $data[$index]['image']; ?>" class="img-thumbnail" width="100" height="100"></td>                            <td>
+                            <a href="update_form.php?id=<?php echo $data[$index]['id']?>">
+                                <button type="button" class="btn btn-warning">Ubah Data</button>
+                            </a>
+                            <a href="delete.php?id=<?php echo $data[$index]['id']?> &image=<?php echo $data[$index]['image']?>">
+                                <button type="button" class="btn btn-danger">Hapus Data</button>
+                            </a>
+                            
+                            </td>
+                        </tr>
+
+                    <?php
+                    }
+                    ?>
                 </tbody>
             </table>
-    </div>
+        </div>
 
-    <footer>
+        <footer>
             <div class="row">
                 <!-- kolom 1 -->
                 <div class="col-md-6">
@@ -80,9 +87,10 @@
                 </div>
                 <!-- kolom 2 -->
                 <div class="col-md-6 text-md-end">
-                    <a class="text-dark">Instagram : @dreamwearly.co</a>
+                    <a href="https://instagram.com" >Instagram : @dreamwearly.co</a>
                 </div>
             </div>
         </footer>
 </body>
+
 </html>
