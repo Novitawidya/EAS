@@ -3,15 +3,43 @@ DROP TABLE IF EXISTS users;
 
 CREATE TABLE IF NOT EXISTS dress (
     id INT AUTO_INCREMENT PRIMANRY KEY,
-    Keterangan VARCHAR(255) NOT NULL,
+    keterangan VARCHAR(255) NOT NULL,
     harga BIGINT NOT NULL,
-    kategori VARCHAR(255) NOT NUL,
+    ukuran VARCHAR(255) NOT NUL,
     stok INT NOT NULL,
     image VARCHAR(255)
 );
 
 CREATE TABLE IF NOT EXISTS users(
     id INT AUTO_INCREMENT PRIMANRY KEY,
+    name VARCHAR(255) Not NULL,
     email VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    cpassword VARCHAR(255) NOT NULL,
+    user_type VARCHAR(255) NOT NULL user
+);
+
+CREATE TABLE chart (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   image VARCHAR(255) NOT NULL,
+   barang VARCHAR(255) NOT NULL,
+   harga DECIMAL(10, 2) NOT NULL,
+   jumlah INT NOT NULL,
+   total DECIMAL(10, 2) AS (harga * jumlah) STORED
+);
+
+CREATE TABLE orders (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   name VARCHAR(255) NOT NULL,
+   number VARCHAR(20) NOT NULL,
+   email VARCHAR(255) NOT NULL,
+   method VARCHAR(50) NOT NULL,
+   flat VARCHAR(255) NOT NULL,
+   street VARCHAR(255) NOT NULL,
+   city VARCHAR(100) NOT NULL,
+   state VARCHAR(100) NOT NULL,
+   country VARCHAR(100) NOT NULL,
+   pin_code VARCHAR(20) NOT NULL,
+   total_products TEXT NOT NULL,
+   total_price DECIMAL(10,2) NOT NULL,
 );
