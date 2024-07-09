@@ -38,7 +38,7 @@ if (isset($_POST['add_to_cart'])) {
         $update_quantity_query = "UPDATE chart SET jumlah=jumlah + 1, total=harga * jumlah WHERE barang='$product_name'";
         mysqli_query($conn, $update_quantity_query);
     } else {
-        $add_to_cart_query = "INSERT INTO chart (image, barang, ukuran, harga, jumlah, total) VALUES ('$product_image', '$product_name', '$product_size', '$product_price', '$quantity', '$product_price')";
+        $add_to_cart_query = "INSERT INTO chart (image, barang, harga, jumlah, total) VALUES ('$product_image', '$product_name', '$product_price', '$quantity', '$product_price')";
         mysqli_query($conn, $add_to_cart_query);
     }
 
